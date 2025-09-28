@@ -7,8 +7,6 @@
 crash.log
 
 # Sensitive variable files (if they contain secrets)
-*.tfvars
-*.auto.tfvars
 
 # Node / JS dependencies
 node_modules/

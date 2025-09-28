@@ -4,10 +4,11 @@ This project creates a simple web application on Azure using Terraform, demonstr
 
 ## 🎯 What This Creates
 
-- **Resource Group** - A logical container for your Azure resources
-- **Container Instance** - Runs a simple web application in a Docker container
-- **Public IP Address** - Makes your application accessible from the internet
-- **Network Security** - Basic firewall rules for web traffic
+- **Application on nodejs** - this runs an containarized docker nodejs app on Azure using terraform
+- **Pulls image from ACR automatically** - 
+
+- **Public IP Address** - application must be on IP:3000 port
+- **Remote tfstate** - tfstate must be placed remotely
 
 ## 📋 Prerequisites
 
@@ -25,7 +26,10 @@ my-first-infrastructure/
 ├── main.tf              # Main Terraform configuration
 ├── variables.tf         # Variable definitions
 ├── terraform.tfvars     # Variable values (customize this!)
-├── outputs.tf           # Output definitions
+├── outputs.tf
+package.json
+index.js
+           # Output definitions
 └── README.md           # This file
 ```
 
@@ -36,7 +40,7 @@ my-first-infrastructure/
 ```bash
 # Clone or download this project
 git clone <repository-url>
-cd my-first-infrastructure
+cd project-1-infrastructure
 
 # Login to Azure
 az login
@@ -45,7 +49,7 @@ az login
 
 ### 2. Customize Your Deployment
 
-Edit `terraform.tfvars` to personalize your deployment:
+Edit tf scripts to personalize your deployment using the resources from the first deployment.( resource group and ACR)
 
 ```hcl
 # Example terraform.tfvars
@@ -53,6 +57,23 @@ resource_group_name = "rg-yourname-devops"
 location           = "East US"
 container_name     = "my-webapp"
 ```
+
+after you have the scripts ready, build the docker image locally and push it to acr:
+
+After you create container registry log in:
+
+# Login to ACR
+az acr login --name myacr12345
+
+# Build and tag image
+docker build -t myacr12345.azurecr.io/my-node-app:v1 .
+
+# Push image
+docker push myacr12345.azurecr.io/my-node-app:v1
+
+Now your app will be able to pull image from ACR.
+
+check syntax using "terraform validate"
 
 ### 3. Deploy Infrastructure
 
@@ -77,8 +98,17 @@ After deployment completes:
 terraform output container_ip
 
 # Open in browser
-# http://YOUR_IP_ADDRESS
+# http://YOUR_IP_ADDRESS:3000
 ```
+
+## to store you tfstate remotely follow these steps:
+
+1. Edit backend script with your workflow data.
+2. Initialize backend with: terraform init -reconfigure
+3. run "terraform plan" and "terraform apply"
+4. run "terraform pull" to check state
+
+
 
 ## 🧹 Cleanup
 
@@ -133,6 +163,9 @@ az login
 az account show  # Verify you're logged in
 terraform apply
 ```
+Configure credentials using Azure SP. 
+export crendentials.
+(if you need help with credentials ask teacher)
 
 #### ❌ Can't Access the Website
 
@@ -169,15 +202,17 @@ By completing this project, you've:
 - ✅ Used Infrastructure as Code (Terraform)
 - ✅ Created cloud resources programmatically
 - ✅ Deployed a containerized application
+-    Pull docker image from ACR
+-    Build nodejs application
+-    Store tfstate remotely
+
 - ✅ Managed cloud infrastructure lifecycle
 - ✅ Practiced DevOps fundamentals
 
 ## 🔗 Next Steps
 
 - Explore more Terraform providers
-- Add monitoring and logging
-- Implement CI/CD pipelines
-- Learn about container orchestration (Kubernetes)
+
 
 ## 📞 Support
 

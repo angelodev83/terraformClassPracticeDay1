@@ -2,10 +2,10 @@ output "webapp_url" {
   description = "The public URL of the web application"
   value       = "http://${azurerm_container_group.webapp.ip_address}"
 }
-
+#complete this block with address
 output "webapp_ip" {
   description = "The public IP address of the web application"
-  value       = azurerm_container_group.webapp.ip_address
+  value       = azurerm_container_group.webapp.
 }
 
 output "resource_group_name" {
@@ -15,5 +15,5 @@ output "resource_group_name" {
 
 output "location" {
   description = "The Azure region where resources are deployed"
-  value       = data.azurerm_resource_group.existing.location
+  value       = data.azurerm_resource_group.existing #put location
 } 

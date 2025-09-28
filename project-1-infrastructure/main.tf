@@ -7,24 +7,24 @@ terraform {
   }
 }
 
-provider "azurerm" {
+provider #use azure provider {
   features {}
 }
 
 # Reference existing Resource Group
 data "azurerm_resource_group" "existing" {
-  name = "weekend-rg"   # your existing RG name
+  name =    # your existing RG name
 }
 
 # Reference existing Azure Container Registry
 data "azurerm_container_registry" "existing" {
-  name                = "weekendcr"                  # your existing ACR name
+  name                =                  # your existing ACR name
   resource_group_name = data.azurerm_resource_group.existing.name
 }
 
 # Container Group using the existing image
 resource "azurerm_container_group" "webapp" {
-  name                = "my-nodejs-webapp"
+  name                = #name of application
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
   ip_address_type     = "Public"
@@ -37,8 +37,8 @@ resource "azurerm_container_group" "webapp" {
 
 image_registry_credential {
   server   = data.azurerm_container_registry.existing.login_server
-  username = var.acr_username
-  password = var.acr_password
+  username = # use correct varible
+  password = # use correct variable
 }
 
 

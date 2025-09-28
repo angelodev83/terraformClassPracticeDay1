@@ -1,0 +1,18 @@
+# Terraform local state
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Crash logs
+crash.log
+
+# Sensitive variable files (if they contain secrets)
+*.tfvars
+*.auto.tfvars
+
+# Node / JS dependencies
+node_modules/
+
+# Optional: OS files
+.DS_Store
+Thumbs.db

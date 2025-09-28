@@ -1,20 +1,20 @@
 # Resource Group
-variable "#put variable" {
+variable "resource_group_name" {
   type    = string
-  default = #name of resource
+  default = "TF-RG-alrasheed"
 }
 
 # Location, complete the following block:
-variable "location" {
+variable "resource_group_location" {
   type    = string
-  default = 
+  default = "East US"
 }
 
 #Complete the following block:
 # Container Registry name (must be globally unique)
 variable "acr_name" {
   type    = string
-  default = 
+  default = "acralrasheed12345"
 }
 
 # ACR SKU: Basic, Standard, Premium

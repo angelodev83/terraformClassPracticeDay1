@@ -71,6 +71,11 @@ docker build -t myacr12345.azurecr.io/my-node-app:v1 .
 # Push image
 docker push myacr12345.azurecr.io/my-node-app:v1
 
+type acr credentials in terraform.tfvars:
+
+fetch credentials running this command:
+az acr credential show --name myacr --resource-group myresourcegroup
+
 Now your app will be able to pull image from ACR.
 
 check syntax using "terraform validate"
